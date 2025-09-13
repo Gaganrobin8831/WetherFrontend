@@ -35,7 +35,7 @@ const Search = () => {
     const { searchText, weatherData, status, error } = useSelector(
         (state) => state.weather
     );
-    // console.log(weatherData);
+    console.log(weatherData);
     if (error) {
         toast.success(error);
     }
@@ -47,8 +47,8 @@ const Search = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center mt-20 '>
-            <ToastContainer/>
+        <div className='h-auto flex flex-col items-center justify-center mt-20 '>
+            <ToastContainer />
             <form onSubmit={handleSubmit}>
                 <div className='flex border py-3 bg-white px-7 rounded-4xl'>
                     <input
@@ -77,21 +77,72 @@ const Search = () => {
             {/* {error && <p className="mt-4 text-red-500">Error: {error}</p>} */}
 
             {weatherData && (
-                <div className="flex flex-col items-center mt-4 p-10 rounded-3xl shadow-2xl shadow-black text-white text-bold text-shadow-md" style={{
-                    background: 'linear-gradient(90deg, rgba(7, 181, 250, 0.5) 0%, rgba(34, 230, 213, 0.2) 60%, rgba(64, 227, 208, 0.2) 100%)'
-                }}>
+                <>
+                    <div className="flex flex-col-reverse md:flex-row  items-center justify-evenly mt-4 p-10 rounded-3xl shadow shadow-gray-400 text-white  font-bold text-shadow-md" style={{
+                        background: 'linear-gradient(90deg, rgba(7, 181, 250, 0.5) 0%, rgba(34, 230, 213, 0.2) 60%, rgba(64, 227, 208, 0.2) 100%)'
+                    }}>
+                        <h1 className='text-[60px]  font-bold'>{Math.trunc(weatherData.main.temp_max)}&deg;</h1>
+                        <div className='w-full text-center md:w-[50%] '>
+                            <h2>{searchText.toUpperCase()}</h2>
+                            <p className="text-wrap text-shadow-lg">
+                                {new Date(weatherData.dt * 1000).toLocaleString('en-US', {
+                                    weekday: 'long',     // Monday, Tuesday, etc.
+                                    year: 'numeric',
+                                    month: 'long',       // September
+                                    day: 'numeric',      // 11
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: true         // Optional: use 12-hour format
+                                })}
+                            </p>
+                        </div>
 
-                    <img
-                        src={weatherIcons[weatherData.weather[0].main] || clear_icon}
-                        alt={weatherData.weather[0].main}
-                        className="w-20 h-20"
-                    />
-                    <h1>{searchText.toUpperCase()}</h1>
-                    <h2>{Math.trunc(weatherData.main.temp)}</h2>
-                    <p className="text-lg font-medium mt-2">
-                        {weatherData.weather[0].main}
-                    </p>
-                </div>
+                        <div className='  flex flex-col items-center justify-center md:mr-10 '>
+                            <img
+                                src={weatherIcons[weatherData.weather[0].main] || clear_icon}
+                                alt={weatherData.weather[0].main}
+                                className="w-20 h-20"
+                            />
+                            <p className="text-lg font-medium mt-2">
+                                {weatherData.weather[0].main}
+                            </p>
+                        </div>
+
+
+
+                    </div>
+
+                    <div className='flex flex-col md:flex-row items-center justify-evenly w-[80%] font-bold text-2xl' >
+                        {/* for hummidity */}
+
+                        <div className='flex flex-col items-center justify-evenly mt-10 p-10 text-white rounded-3xl shadow-2xl  shadow-gray-400' style={{
+                            background: 'linear-gradient(90deg, rgba(7, 181, 250, 0.5) 0%, rgba(34, 230, 213, 0.2) 60%, rgba(64, 227, 208, 0.2) 100%)'
+                        }}>
+
+
+                            <h3>Hummidity</h3>
+                            <p>{Math.trunc(weatherData.main.humidity)}%</p>
+
+
+                        </div>
+                        {/* for pressure */}
+                        <div className='flex flex-col items-center justify-evenly mt-10 p-10 text-white rounded-3xl shadow-2xl  shadow-gray-400' style={{
+                            background: 'linear-gradient(90deg, rgba(7, 181, 250, 0.5) 0%, rgba(34, 230, 213, 0.2) 60%, rgba(64, 227, 208, 0.2) 100%)'
+                        }}>
+
+                            <h3>Pressure</h3>
+                            <p>{weatherData.main.pressure} mb</p>
+
+                        </div>
+                        {/* for wind */}
+                        <div className='flex flex-col items-center justify-evenly mt-10 p-10 text-white rounded-3xl shadow-2xl shadow-gray-400' style={{
+                            background: 'linear-gradient(90deg, rgba(7, 181, 250, 0.5) 0%, rgba(34, 230, 213, 0.2) 60%, rgba(64, 227, 208, 0.2) 100%)'
+                        }}>
+                            <h3>Wind</h3>
+                            <p>{weatherData.wind.speed} mph</p>
+                        </div>
+                    </div>
+                </>
             )}
         </div>
     );

@@ -15,9 +15,10 @@ function App() {
   let weatherbg = weather.toUpperCase() === "CLEAR" ? clearWeather : weather === "CLOUDS" ? cloudWeather : rainyWeather;
   return (
  <div
-  className="h-[100vh] bg-cover bg-center"
+  className="h-auto md:h-[100vh] bg-cover bg-center"
   style={{
     backgroundImage: "url(" + weatherbg + ")",
+    backgroundRepeat:'repeat'
   }}
 >
   <Nav/>

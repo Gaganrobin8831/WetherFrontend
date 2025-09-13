@@ -14,11 +14,11 @@ export const fetchWeatherData = createAsyncThunk(
             return response.data.list[0];
         } catch (err) {
             return rejectWithValue(
+                
                 err.response?.data?.message ||
                 err.message ||
                 "Fetch failed"
             );
-
         }
     }
 );
