@@ -22,8 +22,8 @@ const Nav = () => {
           <li className='hover:text-sky-300'>Search</li>
          </Link>
        {authData ? <li>Profile</li> : <li>
-        <button className=' text-shadow-2xs  text-shadow-black mx-3 ring-1 ring-sky-800 px-7 py-1 rounded-3xl hover:bg-white hover:text-sky-900' >Login</button>
-         <button className='text-shadow-2xs   text-shadow-black  mx-3 ring-1 ring-sky-800 px-7 py-1 rounded-3xl hover:bg-white hover:text-sky-900' >Register</button>
+       <Link to={'/Login'}> <button className=' text-shadow-2xs  text-shadow-black mx-3 ring-1 ring-sky-800 px-7 py-1 rounded-3xl hover:bg-white hover:text-sky-900' >Login</button></Link>
+       <Link to={'/Register'}> <button className='text-shadow-2xs   text-shadow-black  mx-3 ring-1 ring-sky-800 px-7 py-1 rounded-3xl hover:bg-white hover:text-sky-900' >Register</button></Link> 
         </li>}
         </ul>
       </div>

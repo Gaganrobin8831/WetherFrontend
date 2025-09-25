@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 import search_icon from '/Assets/search.png';
+
 import clear_icon from '/Assets/clear.png';
 import cloud_icon from '/Assets/cloud.png';
 import drizzle_icon from '/Assets/drizzle.png';
@@ -81,6 +82,7 @@ const Search = () => {
                     <div className="flex flex-col-reverse md:flex-row  items-center justify-evenly mt-4 p-10 rounded-3xl shadow shadow-gray-400 text-white  font-bold text-shadow-md" style={{
                         background: 'linear-gradient(90deg, rgba(7, 181, 250, 0.5) 0%, rgba(34, 230, 213, 0.2) 60%, rgba(64, 227, 208, 0.2) 100%)'
                     }}>
+                        
                         <h1 className='text-[60px]  font-bold'>{Math.trunc(weatherData.main.temp_max)}&deg;</h1>
                         <div className='w-full text-center md:w-[50%] '>
                             <h2>{searchText.toUpperCase()}</h2>

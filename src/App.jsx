@@ -6,6 +6,8 @@ import clearWeather from '/weater/clear.gif'
 import cloudWeather from '/weater/cloud.gif'
 import rainyWeather from '/weater/rainy cloud.gif'
 import Search from './pages/userPanel/search/Search';
+import Register from './pages/userPanel/Register/Register';
+import Login from './pages/userPanel/Login/Login';
 
 
 function App() {
@@ -25,7 +27,8 @@ function App() {
   <Routes>
     
     <Route path='/' element={<div>Home</div>} />
-    <Route path='/login' element={<div>Login</div>} />
+    <Route path='/login' element={<Login/>} />
+    <Route path='/Register' element={<Register/>} />
     <Route path='/Search' element={<Search/>} />
   </Routes>
   
