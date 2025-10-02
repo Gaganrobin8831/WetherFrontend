@@ -11,7 +11,9 @@ export const fetchWeatherData = createAsyncThunk(
             const response = await axios.get(
                 `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
             );
-            return response.data.list[0];
+            // console.log(response);
+            
+            return [response.data.list[0],response.data];
         } catch (err) {
             return rejectWithValue(
                 
@@ -31,7 +33,8 @@ const weatherSlice = createSlice({
         searchText: "",
         status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
         error: null,
-        weather: 'clear'
+        weather: 'clear',
+        fullWetherData: null,
 
     },
     reducers: {
@@ -48,8 +51,9 @@ const weatherSlice = createSlice({
             })
             .addCase(fetchWeatherData.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                state.weatherData = action.payload;
-                state.weather = action.payload.weather[0].main.toUpperCase(); // ✅ Set weather here
+                state.weatherData = action.payload[0];
+                state.weather = action.payload[0].weather[0].main.toUpperCase(); // ✅ Set weather here
+                state.fullWetherData = action.payload[1];
             })
 
             .addCase(fetchWeatherData.rejected, (state, action) => {
