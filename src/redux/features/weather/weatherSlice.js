@@ -4,24 +4,26 @@ import axios from "axios";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
+// redux/features/weather/weatherSlice.js
 export const fetchWeatherData = createAsyncThunk(
     "weather/fetchWeatherData",
     async (city, { rejectWithValue }) => {
         try {
+            // Check if the user is online
+            if (!navigator.onLine) {
+                throw new Error("No internet connection.");
+            }
+
             const response = await axios.get(
                 `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
             );
-            // console.log(response);
             
-            return [response.data.list[0],response.data];
+            return [response.data.list[0], response.data];
         } catch (err) {
             return rejectWithValue(
-                
                 err.response?.data?.message ||
                 err.message ||
                 "Fetch failed"
-
-                
             );
         }
     }
