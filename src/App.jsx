@@ -7,7 +7,7 @@ import cloudWeather from '/weater/cloud.gif'
 import rainyWeather from '/weater/rainy cloud.gif'
 import Search from './pages/userPanel/search/Search';
 
-import Hero from './pages/userPanel/Hero/HEro';
+import Hero from './pages/userPanel/Hero/Hero';
 import Text from './pages/userPanel/test/Text';
 import Footer from './components/Footer/Footer';
 
