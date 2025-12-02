@@ -38,14 +38,15 @@ const Search = () => {
     const { searchText, weatherData, status, error, fullWetherData } = useSelector(
         (state) => state.weather
     );
-    // console.log(fullWetherData);
+    console.log(fullWetherData);
 
     // Validate input and lookup timezone
     const getTimezoneFromCity = (cityName, countryCodeIso2) => {
         if (!cityName || cityName.length < 2) return null;
 
         const cities = cityTimezones.lookupViaCity(cityName.trim());
-
+        console.log(cities);
+        
         if (!cities.length) return null;
 
         const cityMatch = cities.find(
@@ -70,7 +71,8 @@ const Search = () => {
     if (fullWetherData?.city) {
         const city = fullWetherData.city;
         const timezoneName = getTimezoneFromCity(city?.name, city?.country);
-
+        // console.log(timezoneName);
+        
         if (!timezoneName) {
             toast.error("Please enter a valid city name.");
             isValidCitySearch = false;
@@ -99,9 +101,9 @@ const Search = () => {
     };
 
     return (
-<div className={`${fullWetherData ? 'h-auto' : 'h-[60vh]'} flex flex-col items-center justify-center mt-20`}>
+<div className={`${fullWetherData ? 'h-auto' : 'h-[60vh]'} flex flex-col items-center justify-center `}>
             <ToastContainer />
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} className='mt-10'>
                 <h1 className='text-center my-11 text-white text-shadow-md text-shadow-sky-700 text-4xl font-extrabold'>Enter the City Name</h1>
                 <div className='flex border py-3 bg-white px-7 rounded-4xl'>
                     
@@ -129,10 +131,10 @@ const Search = () => {
             {status === "loading" && <p className="mt-4">Loading...</p>}
 
             {/* Only render if it's a valid city */}
-            {weatherData && isValidCitySearch && (
+            {fullWetherData && isValidCitySearch && (
                 <>
                     <div className="flex flex-col-reverse md:flex-row items-center justify-evenly mt-4 p-10 rounded-3xl shadow shadow-gray-400 text-white font-bold text-shadow-md bg-gradient-to-r from-sky-400/70 to-sky-700/80">
-                        <h1 className='text-[60px] font-bold'>{Math.trunc(weatherData.main.temp_max)}&deg;</h1>
+                        <h1 className='text-[60px] font-bold'>{Math.trunc(fullWetherData?.list[0]?.main.temp_max)}&deg;</h1>
 
                         <div className='w-full text-center md:w-[50%]'>
                             <h2>{searchText.toUpperCase()}</h2>
@@ -143,12 +145,12 @@ const Search = () => {
 
                         <div className='flex flex-col items-center justify-center md:mr-10'>
                             <img
-                                src={weatherIcons[weatherData.weather[0].main] || clear_icon}
-                                alt={weatherData.weather[0].main}
+                                src={weatherIcons[fullWetherData?.list[0]?.weather[0].main] || clear_icon}
+                                alt={fullWetherData?.list[0]?.weather[0].main}
                                 className="w-20 h-20"
                             />
                             <p className="text-lg font-medium mt-2">
-                                {weatherData.weather[0].main}
+                                {fullWetherData?.list[0]?.weather[0].main}
                             </p>
                         </div>
                     </div>
@@ -156,26 +158,26 @@ const Search = () => {
                     <div className='flex flex-col md:flex-row items-center justify-evenly w-[80%] font-bold text-2xl'>
                         <div className='flex flex-col items-center justify-evenly mt-10 p-10 text-white rounded-3xl shadow-2xl shadow-gray-400 bg-gradient-to-r from-sky-400/70 to-sky-700/80'>
                             <h3>Humidity</h3>
-                            <p>{Math.trunc(weatherData.main.humidity)}%</p>
+                            <p>{Math.trunc(fullWetherData?.list[0]?.main.humidity)}%</p>
                         </div>
 
                         <div className='flex flex-col items-center justify-evenly mt-10 p-10 text-white rounded-3xl shadow-2xl shadow-gray-400 bg-gradient-to-r from-sky-400/70 to-sky-700/80'>
                             <h3>Pressure</h3>
-                            <p>{weatherData.main.pressure} mb</p>
+                            <p>{fullWetherData?.list[0]?.main.pressure} mb</p>
                         </div>
 
                         <div className='flex flex-col items-center justify-evenly mt-10 p-10 text-white rounded-3xl shadow-2xl shadow-gray-400 bg-gradient-to-r from-sky-400/70 to-sky-700/80'>
                             <h3>Wind</h3>
-                            <p>{weatherData.wind.speed} mph</p>
+                            <p>{fullWetherData?.list[0]?.wind.speed} mph</p>
                         </div>
                     </div>
                 </>
             )}
 
 
-           {fullWetherData && <h1 className=' text-center my-11 text-white text-shadow-md text-shadow-sky-700 text-4xl font-extrabold'>Full Month Weather</h1>}
+           {fullWetherData && <h1 className=' text-center my-16 text-white text-shadow-md text-shadow-sky-700 text-4xl font-extrabold'>Full Month Weather</h1>}
             {fullWetherData?.list?.length > 0 && (
-                <div className='h-auto w-full mt-10 flex flex-wrap items-center justify-center gap-10'>
+                <div className='h-auto w-full my-10 flex flex-wrap items-center justify-center gap-10'>
                     {fullWetherData.list.map((item, index) => (
                         <div
                             key={index}

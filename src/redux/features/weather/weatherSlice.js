@@ -20,6 +20,8 @@ export const fetchWeatherData = createAsyncThunk(
                 err.response?.data?.message ||
                 err.message ||
                 "Fetch failed"
+
+                
             );
         }
     }
@@ -59,6 +61,9 @@ const weatherSlice = createSlice({
             .addCase(fetchWeatherData.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload;
+                 state.weatherData =null;
+                state.weather = null;
+                state.fullWetherData = null;
             });
 
     },

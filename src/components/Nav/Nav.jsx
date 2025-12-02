@@ -1,35 +1,88 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
-  const authData = useSelector((state) => state.auth.isAuthenticated)
-  console.log(authData);
-  
+  const [open, setOpen] = useState(false);
+  const [scrollBg, setScrollBg] = useState(0);
+
+  // Detect scroll to change background opacity
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY;
+      const opacity = Math.min(scrolled / 200, 0.85); // max opacity 0.85
+      setScrollBg(opacity);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className='h-auto py-5 flex justify-evenly items-center text-white text-shadow-2xs text-shadow-sky-950'>
-      {/* logo box */}
-      <div className=' flex justify-center items-center space-x-1 font-extrabold text-3xl'>
-        <img src="" alt="" srcset="./Assets/clear.png"  className='size-[60px]'/>
-        <h2>Wether Forcast</h2>
+    <nav
+      className="fixed top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-lg"
+      style={{
+        backgroundColor: `rgba(0, 0, 0, ${scrollBg})`,
+      }}
+    >
+      <div className="flex justify-evenly items-center py-4 text-white">
+
+        {/* Logo */}
+        <div className="flex items-center space-x-2 font-extrabold text-2xl">
+          <img src="./Assets/clear.png" alt="" className="w-[50px]" />
+          <h2>Weather Forecast</h2>
+        </div>
+
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex space-x-8 text-lg font-semibold">
+          <Link to={"/"}>
+            <li className="hover:text-sky-300">Home</li>
+          </Link>
+
+          <Link to={"/Search"}>
+            <li className="hover:text-sky-300">Search</li>
+          </Link>
+        </ul>
+
+        {/* Hamburger Icon */}
+        <button
+          className="md:hidden flex flex-col space-y-1"
+          onClick={() => setOpen(!open)}
+        >
+          <span
+            className={`w-8 h-1 bg-white rounded transition-all ${
+              open ? "rotate-45 translate-y-2" : ""
+            }`}
+          ></span>
+          <span
+            className={`w-8 h-1 bg-white rounded transition-all ${
+              open ? "opacity-0" : ""
+            }`}
+          ></span>
+          <span
+            className={`w-8 h-1 bg-white rounded transition-all ${
+              open ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          ></span>
+        </button>
       </div>
-      {/* logo box End*/}
-      {/* menu box */}
-      <div >
-        <ul className='flex justify-evenly items-center space-x-5 text-lg font-semibold'>
-          <Link to={'/'}><li className='hover:text-sky-300'>Home</li></Link>
-         <Link to={'/Search'}>
-          <li className='hover:text-sky-300'>Search</li>
-         </Link>
-       {authData ? <li>Profile</li> : <li>
-       <Link to={'/Login'}> <button className=' text-shadow-2xs  text-shadow-black mx-3 ring-1 ring-sky-800 px-7 py-1 rounded-3xl hover:bg-white hover:text-sky-900' >Login</button></Link>
-       <Link to={'/Register'}> <button className='text-shadow-2xs   text-shadow-black  mx-3 ring-1 ring-sky-800 px-7 py-1 rounded-3xl hover:bg-white hover:text-sky-900' >Register</button></Link> 
-        </li>}
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden transition-all duration-300 overflow-hidden ${
+          open ? "max-h-40" : "max-h-0"
+        }`}
+      >
+        <ul className="flex flex-col items-center py-4 space-y-5 text-lg font-semibold bg-black/60 backdrop-blur-md">
+          <Link to={"/"} onClick={() => setOpen(false)}>
+            <li className="hover:text-sky-300">Home</li>
+          </Link>
+          <Link to={"/Search"} onClick={() => setOpen(false)}>
+            <li className="hover:text-sky-300">Search</li>
+          </Link>
         </ul>
       </div>
-      {/* menu box End*/}
-    </div>
-  )
-}
+    </nav>
+  );
+};
 
-export default Nav
+export default Nav;
