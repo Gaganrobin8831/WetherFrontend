@@ -109,7 +109,7 @@ const Search = () => {
                 localTimeString = new Date().toLocaleString("en-US", {
                     timeZone: timezoneName,
                 });
-            } catch () {
+            } catch (error) {
                 localTimeString = getLocalTimeFromOffset(city.timezone);
             }
         }
