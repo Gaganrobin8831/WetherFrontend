@@ -4,7 +4,7 @@ import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className='h-auto md:h-[50vh] bg-black text-white text-shadow-2xs text-shadow-sky-950 flex flex-col lg:flex-row items-center justify-evenly py-10'>
+    <div className='min-h-[50vh] bg-black text-white text-shadow-2xs text-shadow-sky-950 flex flex-col lg:flex-row items-center justify-evenly py-10'>
 
       {/* Logo Section */}
       <div className='flex justify-center w-[30%] items-center space-x-3 font-extrabold text-3xl'>
