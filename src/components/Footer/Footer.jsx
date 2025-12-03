@@ -1,6 +1,7 @@
 import React from 'react'
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -14,15 +15,15 @@ const Footer = () => {
 
       {/* Navigation Section */}
       <div className='bg-black h-auto w-[60%] lg:w-[20%] lg:h-[40%] flex flex-col items-center justify-evenly mt-10 lg:mt-0 space-y-4'>
-        <h2 className="text-xl flex items-center gap-2">
+        <a href="/" className="text-xl flex items-center gap-2 hover:text-sky-300 transition-colors cursor-pointer">
           <AiFillHome className="text-sky-400 text-2xl" />
           Home
-        </h2>
+        </a>
 
-        <h2 className="text-xl flex items-center gap-2">
+        <Link to="/Search" className="text-xl flex items-center gap-2 hover:text-sky-300 transition-colors cursor-pointer">
           <AiOutlineSearch className="text-sky-400 text-2xl"/>
           Search
-        </h2>
+        </Link>
 
         <p className="text-center text-sm text-gray-300">
           Explore weather with us.
@@ -32,15 +33,15 @@ const Footer = () => {
       {/* Social Section */}
       <div className='bg-black h-auto w-[60%] lg:w-[20%] lg:h-[40%] flex flex-col items-center justify-evenly mt-10 lg:mt-0 space-y-4'>
         
-        <h2 className="text-xl flex items-center gap-2">
+        <a href="https://www.instagram.com/singh_gagan9322" target="_blank" rel="noopener noreferrer" className="text-xl flex items-center gap-2 hover:text-pink-400 transition-colors cursor-pointer">
           <FaInstagram className="text-pink-500 text-2xl"/>
           Instagram
-        </h2>
+        </a>
 
-        <h2 className="text-xl flex items-center gap-2">
+        <a href="https://wa.me/916280738831" target="_blank" rel="noopener noreferrer" className="text-xl flex items-center gap-2 hover:text-green-300 transition-colors cursor-pointer">
           <FaWhatsapp className="text-green-400 text-2xl"/>
           WhatsApp
-        </h2>
+        </a>
 
         <p className="text-center text-sm text-gray-300">
           Connect with us anytime.

@@ -19,7 +19,7 @@ function App() {
       );
   // console.log(clearWeather);
   // console.log({weather});
-  let weatherbg = weather.toUpperCase() === "CLEAR" ? clearWeather : weather === "CLOUDS" ? cloudWeather : rainyWeather;
+  let weatherbg = weather?.toUpperCase() === "CLEAR" ? clearWeather : weather === "CLOUDS" ? cloudWeather : rainyWeather;
 
  
 

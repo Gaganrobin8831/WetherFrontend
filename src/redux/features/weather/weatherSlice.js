@@ -45,7 +45,11 @@ const weatherSlice = createSlice({
         setSearchText: (state, action) => {
             state.searchText = action.payload;
         },
-
+        clearWeatherData: (state) => {
+            state.fullWetherData = null;
+            state.weatherData = null;
+            state.error = null;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -71,5 +75,5 @@ const weatherSlice = createSlice({
     },
 });
 
-export const { setSearchText } = weatherSlice.actions;
+export const { setSearchText, clearWeatherData } = weatherSlice.actions;
 export default weatherSlice.reducer;
